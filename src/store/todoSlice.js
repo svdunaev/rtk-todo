@@ -20,6 +20,26 @@ export const fetchTodos = createAsyncThunk('todos/fetchTodos', async function (
   }
 })
 
+export const deleteTodo = createAsyncThunk(
+	'todos/deleteTodo',
+	async function (id, { rejectWithValue, dispatch }) {
+		try {
+			const response = await fetch(`https://637acf47702b9830b9f3792a.mockapi.io/todos/${id}`, {
+				method: 'DELETE',
+			})
+
+			if (!response.ok) {
+				throw new Error('Can\'t delete task. Server error!')
+			}
+		
+			dispatch(removeTodo({id}))
+
+		} catch (error) {
+			return rejectWithValue(error.message)
+		}
+	}
+)
+
 const todoSlice = createSlice({
   name: 'todos',
   initialState: {
@@ -27,7 +47,11 @@ const todoSlice = createSlice({
     status: null,
     error: null,
   },
-  reducers: {},
+  reducers: {
+		removeTodo(state, action) {
+			state.todos = state.todos.filter(todo => todo.id !== action.payload.id)
+		}
+	},
   extraReducers: {
     [fetchTodos.pending]: (state) => {
       state.status = 'loading'
@@ -43,5 +67,7 @@ const todoSlice = createSlice({
     },
   },
 })
+
+const {removeTodo} = todoSlice.actions;
 
 export default todoSlice.reducer;

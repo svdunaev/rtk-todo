@@ -39,3 +39,8 @@
 .read-the-docs {
   color: #888;
 }
+
+span:last-child {
+  color: red;
+  cursor: pointer;
+}
