@@ -5,8 +5,6 @@ import TodoItem from './TodoItem'
 export default function TodoList() {
   const todos = useSelector((state) => state.app.todos)
 
-	console.log(todos);
-
   return (
     <ul>
       {todos.map((todo) => (
