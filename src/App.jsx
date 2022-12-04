@@ -1,9 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import reactLogo from './assets/react.svg'
 import './App.css'
+import { fetchTodos } from './store/todoSlice'
 
 function App() {
   const [count, setCount] = useState(0)
+  const dispatch = useDispatch()
+  const todos = useSelector(state => state.app.todos);
+
+  useEffect(() => {
+    dispatch(fetchTodos())
+  }, [dispatch])
 
   return (
     <div className="App">
