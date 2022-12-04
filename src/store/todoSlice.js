@@ -72,6 +72,38 @@ export const toggleStatus = createAsyncThunk(
   },
 )
 
+export const addNewTodo = createAsyncThunk('todos/addNewTodo', async function (
+  text,
+  { rejectWithValue, dispatch },
+) {
+  try {
+    const todo = {
+      text: text,
+      completed: false,
+    }
+
+    const response = await fetch(
+      'https://637acf47702b9830b9f3792a.mockapi.io/todos',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(todo),
+      },
+    )
+
+    if (!response.ok) {
+      throw new Error("Can't add task. Server error!")
+    }
+
+    const data = await response.json()
+    dispatch(addTodo(data))
+  } catch (error) {
+    return rejectWithValue(error.message)
+  }
+})
+
 const setError = (state, action) => {
   state.status = 'rejected'
   state.error = action.payload
@@ -93,6 +125,9 @@ const todoSlice = createSlice({
         (todo) => todo.id === action.payload.id,
       )
       toggledTodo.completed = !toggledTodo.completed
+    },
+    addTodo(state, action) {
+      state.todos.push(action.payload)
     },
   },
   extraReducers: {
