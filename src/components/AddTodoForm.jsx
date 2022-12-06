@@ -17,6 +17,7 @@ export default function AddTodoForm() {
   return (
     <label>
       <input
+        className='text-input'
         value={text}
         placeholder="new todo"
         onChange={(evt) => setText(evt.target.value)}
