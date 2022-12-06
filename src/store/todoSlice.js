@@ -130,19 +130,19 @@ const todoSlice = createSlice({
       state.todos.push(action.payload)
     },
   },
-  extraReducers: {
-    [fetchTodos.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchTodos.pending, (state) => {
       state.status = 'loading'
       state.error = null
-    },
-    [fetchTodos.fulfilled]: (state, action) => {
+    })
+    builder.addCase(fetchTodos.fulfilled, (state, action) => {
       state.status = 'resolved'
       state.todos = action.payload
-    },
-    [fetchTodos.rejected]: setError,
-    [deleteTodo.rejected]: setError,
-    [toggleStatus.rejecter]: setError,
-  },
+    })
+    builder.addCase(fetchTodos.rejected, setError)
+    builder.addCase(deleteTodo.rejected, setError)
+    builder.addCase(toggleStatus.rejected, setError)
+  }
 })
 
 const { removeTodo, toggleComplete, addTodo } = todoSlice.actions
