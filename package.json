@@ -1,4 +1,5 @@
 {
+  "homepage": "https://svdunaev.github.io/rtk-todo",
   "name": "vite-test",
   "private": true,
   "version": "0.0.0",
@@ -6,6 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -18,6 +21,7 @@
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
+    "gh-pages": "^4.0.0",
     "vite": "^3.2.3"
   }
 }
