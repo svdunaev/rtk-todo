@@ -1,4 +1,6 @@
-# This app is made for learning Redux-toolkit and trying out vite.
+# Todo with redux
+
+## This app is made for learning Redux-toolkit and trying out vite.
 
 [rtk todo >>](https://svdunaev.github.io/rtk-todo)
 
